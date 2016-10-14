@@ -1,10 +1,16 @@
-<div class="card-block">
-  <b><%= food_item.name %></b>
-</div>
-<div class="card-block">
-  <%= image_tag food_item.image %>
-</div>
-<div class="card-block">
-  <%= food_item.price %>
-  <%= food_item.description %>
+<div class="card card-block">
+  <div class="card-block">
+    <b><%= link_to food_item.name,food_item_path(food_item.id) %></b>
+  </div>
+  <div class="card-block">
+    <%= image_tag food_item.image, class:"card-img-top", :size=>"150x120" %>
+  </div>
+  <div class="card-block">
+    <%= food_item.price %>
+    <br />
+    <%= food_item.description %>
+  </div>
+  <div class="card-block">
+    <%= link_to 'Order', new_order_path(:food_item=>food_item.id), class:'btn btn-primary'%> |
+  </div>
 </div>

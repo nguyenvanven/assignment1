@@ -1,14 +1,37 @@
 <div class="container">
 	<h1>Menu</h1>
 	<div class="nav nav-pills">
+		<li class="nav-item">
+			<%= link_to "All", menu_path ,
+			class:"nav-link #{'active' if params[:section] == nil}" %>
+		</li>
 		<%Section.all.each do |section| %>
-			<li class="nav-item">
-				<%= link_to section.name, menu_path(section:section.name) ,
-					class:"nav-link #{'active' if params[:section] == section.name}" %>
-			</li>
+		<li class="nav-item">
+			<%= link_to section.name, menu_path(section:section.name) ,
+			class:"nav-link #{'active' if params[:section] == section.name}" %>
+		</li>
 		<%end%>
 	</div>
 	<div class="card">
+		<div class="card card-block">
+			<%= form_tag(menu_path, :method => 'get', :class=>'form-search pull-xs-right', id:"search-form") do %>
+			<p>
+				<%= text_field_tag :search, params[:search], :class=>'search-query' %>
+				<%= hidden_field_tag :section, params[:section] %>
+				<%= submit_tag "Search", :name=>nil, :class=>'btn-outline-info' %>
+			</p>
+			<% end %>
+		</div>
+		<div class="card card-block form-inline">
+			<p class="card-title">Sort by</p>
+			<%= form_tag nil, :method=>"get" do %>
+				<%= hidden_field_tag :section, params[:section] %>
+				<%= hidden_field_tag :search, params[:search] %>
+				<%= select_tag :sort_column, options_for_select([['Name','name'],['Price','price']]) %>
+				<%= select_tag :sort_direction, options_for_select([['Ascending','asc'],['Descending','desc']]) %>
+				<%= submit_tag "Submit" %>
+			<%end%>
+		</div>
 		<% @food_items.each do |food_item| %>
 			<%= render food_item %>
 		<%end%>

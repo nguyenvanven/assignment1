@@ -1,0 +1,58 @@
+<%= form_for(order) do |f| %>
+  <% if order.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+      <ul>
+      <% order.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :customerName %>
+    <%= f.text_field :customerName %>
+  </div>
+
+  <div class="field">
+    <%= f.label :address %>
+    <%= f.text_field :address %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </div>
+
+  <div class="field">
+    <%= f.label :phonenumber %>
+    <%= f.text_field :phonenumber %>
+  </div>
+
+  <div class="card">
+    <% if @food_item != nil then %>
+    <%= hidden_field_tag :food_item, @food_item.id %>
+    <div class="card-block">
+      <b><%= @food_item.name%></b>
+    </div>
+    <div class="card-block">
+      <%= image_tag @food_item.image, class:"card-img-top", :size=>"75x60" %>
+    </div>
+    <div class="card-block">
+      <%= @food_item.price %>
+      <br />
+      <%= @food_item.description %>
+    </div>
+    <div class="field card-block">
+      <%= f.label :amount %>
+      <%= f.number_field :amount %>
+    </div>
+    <%end%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
