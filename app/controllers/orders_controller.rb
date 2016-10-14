@@ -31,10 +31,10 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     @order.food_item = FoodItem.find(params[:food_item])
-    @order.total = @order.food_item.price * @order.amount
+    @order.total = @order.food_item.price * @order.amount + 20000
     respond_to do |format|
       if @order.save
-        format.html { redirect_to @order, notice: 'Order was successfully created.' }
+        format.html { redirect_to @order, notice: 'Thank you for your order' }
         format.json { render :show, status: :created, location: @order }
       else
         format.html { render :new }
